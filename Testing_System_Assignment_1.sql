@@ -1,65 +1,65 @@
 CREATE DATABASE testing_system;
 USE testing_system;
-CREATE TABLE Department(
-	Department_ID		INT,
-	Department_Name		VARCHAR(50)
+CREATE TABLE department(
+	department_id		INT,
+	department_name		VARCHAR(50)
 );
-create table Positon(
-	Position_ID 		INT,
-	Position_NAME		VARCHAR(15)
+create table positon(
+	position_id			INT,
+	position_name		VARCHAR(15)
 );
-create table `Account`(
-	`Account_ID`		INT,
-	`Email`				VARCHAR(50),
-	Username			VARCHAR(50),
-	Fullname			VARCHAR(50),
-	Derpartment_ID 		INT,
-	Position_ID			INT,
-	Creat_Date			DATE
+create table `account`(
+	`account_id`		INT,
+	`email`				VARCHAR(50),
+	username			VARCHAR(50),
+	fullname			VARCHAR(50),
+	derpartment_id 		INT,
+	position_id			INT,
+	creat_date			DATE
 );
-create table `Group`(
-	`Group_ID`			INT,
-	Group_NAME			VARCHAR(50),
-	Creator_ID			INT,
-	CreateDate			DATE
+create table `group`(
+	`group_id`			INT,
+	group_name			VARCHAR(50),
+	creator_id			INT,
+	create_date			DATE
 );
-create table `GroupAccount`(
-	`Group_ID`			INT,
-	Accont_ID			INT,
-	Join_Date			DATE
+create table `group_account`(
+	`group_id`			INT,
+	account_id			INT,
+	join_date			DATE
 );
-create table TypeQuetion(
-	Type_ID				INT,
-	`Type_NAME`			VARCHAR(50)
+create table type_Quetion(
+	type_id				INT,
+	`type_name`			VARCHAR(50)
 );
-create table CategoryQuestion(
-	Category_ID			INT,
-	Category_NAME		VARCHAR(50)
+create table category_question(
+	category_id			INT,
+	category_name		VARCHAR(50)
 );
-create table Quention(
-	Question_ID 		INT,
-	Content				TEXT,
-	Category_ID			INT,
-	Type_ID				INT,
-	Creator_ID			INT,
-	CreateDay			DATE
+create table Question(
+	question_id 		INT,
+	content				TEXT,
+	category_id			INT,
+	type_id				INT,
+	creator_id			INT,
+	create_day			DATE
 );
-create table Answer(
-	Answer_ID 			INT,
-	Content				VARCHAR(200),
-	Question_ID			INT,
-	isCorrect			INT
+create table answer(
+	answer_id 			INT,
+	content				VARCHAR(200),
+	question_id			INT,
+	is_correct			BOOLEAN
 );
 create table Exam(
-	Exam_ID				INT,
-	`Code`				INT,
-	Title				VARCHAR(50),
-	Categoty_ID			VARCHAR(50),
-	Duration			TIME,
-	Creator_ID			INT,
-	CreateDate			DATE
+	exam_id				INT,
+	`code`				INT,
+	title				VARCHAR(50),
+	categoty_id			VARCHAR(50),
+	duration			INT,
+	creator_id			INT,
+	create_date			DATE
 );
 create table ExamQuetion(
-	Exam_ID				INT,
-	Question_ID			INT
+	exam_id				INT,
+	question_id			INT
 );
