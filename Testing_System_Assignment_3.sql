@@ -92,6 +92,7 @@ create table question(
     FOREIGN KEY (category_id) REFERENCES category_question(category_id),
 	FOREIGN KEY (type_id) REFERENCES type_question(type_id)
 );
+
 -- Table 9: Answer
 --  AnswerID: định danh của câu trả lời (auto increment)
 --  Content: nội dung của câu trả lời
@@ -120,7 +121,7 @@ create table exam(
 	creator_id			TINYINT NOT NULL,
 	create_date			DATE
 );
-create table ExamQuetion(
+create table exam_quetion(
 	exam_id				TINYINT NOT NULL,
 	question_id			TINYINT NOT NULL,
     FOREIGN KEY (question_id) REFERENCES question(question_id),
@@ -145,6 +146,41 @@ value(1,'a@mail.com','a','aa',3,2,'2021/03/22'),
 INSERT INTO `group`(`group_id`,group_name,creator_id,create_date) 
 value(1,'gruop1',2,'2021/03/22'),(2,'gruop2',5,'2021/03/22'),(3,'gruop3',6,'2021/03/22'),(4,'gruop4',4,'2021/03/22'),(5,'gruop5',1,'2021/03/22'),
 (6,'gruop6',2,'2021/03/22'),(7,'gruop7',1,'2021/03/22'),(8,'gruop8',9,'2021/03/22'),(9,'gruop9',5,'2021/03/22'),(10,'gruop10',4,'2021/03/22');
+INSERT INTO `group_account`(`group_id`,account_id,join_date) 
+value(1,3,'2021/03/22'),(2,2,'2021/03/22'),(3,1,'2021/03/22'),(4,5,'2021/03/22'),(5,6,'2021/03/22'),
+(6,8,'2021/03/22'),(7,10,'2021/03/22'),(8,9,'2021/03/22'),(9,7,'2021/03/22'),(10,4,'2021/03/22');
+INSERT INTO `type_question`(`type_id`,`type_name`) 
+value(1,'essay'),(2,'multiple-choice'),(3,'multiple-choice'),(4,'multiple-choice'),(5,'multiple-choice'),
+(6,'essay'),(7,'essay'),(8,'multiple-choice'),(9,'essay'),(10,'multiple-choice');
+INSERT INTO `category_question`(`category_id`,`category_name`) 
+value(1,'JAVA'),(2,'SQL'),(3,'NET'),(4,'RUBY'),(5,'HTML'),
+(6,'C++'),(7,'C#'),(8,'JS'),(9,'CSS'),(10,'WP');
+INSERT INTO `question`(`question_id`,`content`,category_id,type_id,creator_id,create_day) 
+value(1,'SQL la gi?', 3,3,3,'2021-19-10'),
+(2,'SQL de lam gi?', 3,4,5,'2021-19-10'),
+(3,'SQL su dung ra sao?', 1,4,5,'2021-19-10'),
+(4,'HTML su dung ra sao?', 1,4,7,'2021-19-10'),
+(5,'CSS su dung ra sao?', 1,2,5,'2021-19-10'),
+(6,'JS su dung ra sao?', 5,4,5,'2021-19-10'),
+(7,'JS de lam gi?', 1,9,5,'2021-19-10'),
+(8,'C++ la gi?', 1,4,9,'2021-19-10'),
+(9,'C++ su dung ra sao?', 3,7,5,'2021-19-10'),
+(10,'C++ ai su dung?', 6,4,2,'2021-19-10');
+INSERT INTO `answer`(answer_id,content,question_id,is_correct) 
+value(1,'',3,1),(2,'khong biet',2,1),(3,'biet',4,0),(4,'vui',1,0),(5,'buon',6,0),(6,'',2,1),(7,'khong biet',9,1),(8,'biet',4,0),(9,'buon cuoi',1,0),(10,'khoc',8,0);
+INSERT INTO `exam`(exam_id,`code`,category_id,duration,creator_id,create_date) 
+value(1,'abc111',3,'60phut',1,'2021-10-19'),
+(2,'abc222',3,'60phut',1,'2021-10-19'),
+(3,'abc333',1,'90phut',1,'2021-10-19'),
+(4,'abc444',1,'120phut',1,'2021-10-19'),
+(5,'abc555',3,'30phut',1,'2021-10-19'),
+(6,'abc666',3,'15phut',1,'2021-10-19'),
+(7,'abc777',3,'5phut',1,'2021-10-19'),
+(8,'abc888',3,'45phut',1,'2021-10-19'),
+(9,'abc999',1,'74phut',1,'2021-10-19'),
+(10,'abc101',1,'60phut',1,'2021-10-19');
+INSERT INTO exam_quetion(exam_id,question_id) 
+value(1,10),(2,9),(3,8),(4,7),(5,6),(6,5),(7,4),(8,3),(9,2),(10,1);
 -- Question 2: lấy ra tất cả các phòng ban
 select department_name from department;
 -- Question 3: lấy ra id của phòng ban "Sale"
