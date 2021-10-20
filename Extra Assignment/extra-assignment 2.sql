@@ -4,6 +4,7 @@ DROP DATABASE IF EXISTS Fresher_Training_Management;
 CREATE DATABASE Fresher_Training_Management;
 use Fresher_Training_Management;
 -- Ta có database để quản lý fresher, có table Trainee với các trường như sau:
+DROP TABLE IF EXISTS trainee;
 CREATE TABLE trainee (
 --  TraineeID: định danh của thực tập sinh (auto increment)
 	trainee_id 		TINYINT AUTO_INCREMENT PRIMARY KEY,
