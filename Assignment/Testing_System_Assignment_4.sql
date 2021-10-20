@@ -14,9 +14,9 @@ SELECT (`department`.department_name), count(`department`.department_name) from 
 WHERE `account`.department_id=`department`.department_id GROUP BY (`department`.department_name) HAVING count(`department`.department_name)>3;
 -- Question 5: Viết lệnh để lấy ra danh sách câu hỏi được sử dụng trong đề thi nhiều nhất
 SELECT*FROM`question`;
-SELECT content, max(count(content))
-FROM `question`
-GROUP BY (content) ;
+SELECT content, count(content)
+FROM `question` 
+GROUP BY (content) order by count(content) desc limit 5;
 -- Question 6: Thông kê mỗi category Question được sử dụng trong bao nhiêu Question
 -- Question 7: Thông kê mỗi Question được sử dụng trong bao nhiêu Exam
 -- Question 8: Lấy ra Question có nhiều câu trả lời nhất
