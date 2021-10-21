@@ -21,7 +21,7 @@ CREATE TABLE trainee (
 --  ET_English: Entry test point (English) - Điểm test đầu vào của thực tập sinh (integer có giá trị từ 0  50)
 	et_english		INT check(0<=et_english AND et_english<=50),
 --  Training_Class: mã lớp của thực tập sinh đang học
-	training_class	VARCHAR(8),
+	training_class	VARCHAR(20),
 --  Evaluation_Notes: 1 vài note đánh giá (free text).
 	evaluation_notes VARCHAR(255)
 );
