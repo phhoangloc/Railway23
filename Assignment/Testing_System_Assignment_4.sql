@@ -25,27 +25,28 @@ GROUP BY (`category_question`.category_name);
 SELECT*FROM`exam`;
 SELECT*FROM`question`;
 SELECT `question`.question_id,`question`.content, count(`exam_question`.question_id) AS 'duoc su dung trong exam' FROM `question` left JOIN `exam_question` ON `question`.question_id=`exam_question`.question_id GROUP BY (`exam_question`.question_id);
--- ** Question 8: Lấy ra Question có nhiều câu trả lời nhất max(count))
+-- ** Question 8: Lấy ra Question có nhiều câu trả lời nhất  
+-- chưa lấy ra được câu hỏi có nhiều câu trả lời nhất
 SELECT `question`.content ,count(`question`.content) as nor, `answer`.content FROM `question` JOIN `answer` ON `question`.question_id=`answer`.question_id GROUP BY (`question`.content) ORDER BY nor desc limit 1 ;
 -- Question 9: Thống kê số lượng account trong mỗi group  
 SELECT*FROM`group`;
 SELECT*FROM`account`;
+SELECT*FROM`group_account`;
 SELECT `group`.group_name , count(`account`.full_name) FROM `group` JOIN `account` ON `account`.account_id=`group`.creator_id GROUP BY (`group`.group_name );
 -- ** Question 10: Tìm chức vụ có ít người nhất min(count))
 SELECT * FROM position;
 SELECT * FROM `account`;
 SELECT position.position_name, count(`account`.position_id) as nor FROM `position` JOIN `account` ON `account`.position_id=`position`.position_id GROUP BY(`account`.position_id) ORDER BY nor desc limit 1 ;
--- ** Question 11: Thống kê mỗi phòng ban có bao nhiêu dev, test, scrum master, PM -- nối 2 bảng liên quan đến bảng thứ 3
+-- ** Question 11: Thống kê mỗi phòng ban có bao nhiêu dev, test, scrum master, PM -- chưa lọc được ra bao nhiêu dev,test...
 SELECT * FROM `department`;
 SELECT * FROM `position`;
 SELECT `department`.department_name,`position`.position_name
 	FROM `department` 
 		JOIN `account` ON `account`.department_id = `department`.department_id 
 		JOIN `position` ON `account`.position_id = `position`.position_id
-        ORDER BY  `department`.department_name  AC
+        ORDER BY  `department`.department_name  ASC;
 ;
 -- Question 12: Lấy thông tin chi tiết của câu hỏi bao gồm: thông tin cơ bản của question, loại câu hỏi, ai là người tạo ra câu hỏi, câu trả lời là gì, …
-SELECT* FROM `type_question`;
 -- Question 13: Lấy ra số lượng câu hỏi của mỗi loại tự luận hay trắc nghiệm
 -- Question 14:Lấy ra group không có account nào
 -- Question 15: Lấy ra group không có account nào

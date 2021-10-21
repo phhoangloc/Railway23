@@ -16,7 +16,7 @@ values
     (10, 'My Ling','1980-10-01', 'female', 20, 15, 35, 'ca si', 'hat hay','VTI010');
 -- Question 2: Viết lệnh để lấy ra tất cả các thực tập sinh đã vượt qua bài test đầu vào, nhóm chúng thành các tháng sinh khác nhau
 SELECT* FROM trainee;
-select full_name, month(birth_date) AS "tháng sinh" FROM trainee ORDER BY month(birth_date);
+SELECT full_name, month(birth_date) AS "tháng sinh" FROM trainee ORDER BY month(birth_date);
 -- Question 3: Viết lệnh để lấy ra thực tập sinh có tên dài nhất, lấy ra các thông tin sau: tên, tuổi, các thông tin cơ bản (như đã được định nghĩa trong table)
 SELECT* FROM trainee;
 SELECT* FROM trainee WHERE length(full_name) = (SELECT max(length(full_name)) FROM trainee);

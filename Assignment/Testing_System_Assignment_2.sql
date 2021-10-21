@@ -56,7 +56,12 @@ values(1,'trautre@mail.com','trâu','trâu trẻ',3,2,'2021-03-22'),
 (7,'gari@mail.com','gà','gà ri',3,3,'2021-06-03'),
 (8,'tinhtinh@mail.com','tinh','tinh tinh',7,4,'2021-09-12'),
 (9,'hobao@mail.com','hổ','hổ báo',4,3,'2021-09-02'),
-(10,'thotrang@mail.com','tho','thỏ trắng',1,5,'2021-09-22');
+(10,'thotrang@mail.com','thỏ','thỏ trắng',1,5,'2021-09-22'),
+(11,'chosoi@mail.com','chó','chó sói',2,1,'2019-09-22'),
+(12,'voicon@mail.com','voi','voi con',1,2,'2021-10-22'),
+(13,'casau@mail.com','cá','cá sấu',3,3,'2021-09-22'),
+(14,'bosua@mail.com','bò','bò sữa',4,4,'2021-09-22'),
+(15,'sutu@mail.com','su','su tu',5,5,'2021-09-22');
 -- Table 4: Group
 --  GroupID: định danh của nhóm (auto increment)
 --  GroupName: tên nhóm
@@ -139,16 +144,16 @@ create table question(
 	FOREIGN KEY (type_id) REFERENCES type_question(type_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 INSERT INTO `question`(`question_id`,`content`,category_id,type_id,creator_id,create_day) 
-values(1,'SQL la gi?', 3,3,3,'2021/10/10'),
-(2,'SQL de lam gi?', 3,4,5,'2021/10/10'),
-(3,'C++ su dung ra sao?', 1,4,5,'2021/10/10'),
-(4,'HTML su dung ra sao?', 1,4,7,'2021/10/10'),
-(5,'CSS su dung ra sao?', 1,2,5,'2021/10/10'),
-(6,'cau hoi JS su dung ra sao?', 5,4,5,'2021/10/10'),
-(7,'JS de lam gi?', 1,9,5,'2021/10/10'),
-(8,'C++ la gi?', 1,4,9,'2021/10/10'),
-(9,'C++ su dung ra sao?', 3,7,5,'2021/10/10'),
-(10,'C++ ai su dung?', 6,4,2,'2021/10/10');
+values(1,'SQL la gi?', 3,1,3,'2021/10/10'),
+(2,'SQL de lam gi?', 3,2,5,'2021/10/10'),
+(3,'C++ su dung ra sao?', 1,2,5,'2021/10/10'),
+(4,'HTML su dung ra sao?', 1,2,7,'2021/10/10'),
+(5,'CSS su dung ra sao?', 1,1,5,'2021/10/10'),
+(6,'cau hoi JS su dung ra sao?', 5,2,5,'2021/10/10'),
+(7,'JS de lam gi?', 1,2,5,'2021/10/10'),
+(8,'C++ la gi?', 1,1,9,'2021/10/10'),
+(9,'C++ su dung ra sao?', 3,1,5,'2021/10/10'),
+(10,'C++ ai su dung?', 6,2,2,'2021/10/10');
 
 -- Table 9: Answer
 --  AnswerID: định danh của câu trả lời (auto increment)
