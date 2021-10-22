@@ -86,7 +86,8 @@ values(1,'gruop1',2,'2021/03/22'),
 (7,'gruop7',1,'2015/03/22'),
 (8,'gruop8',9,'2018/03/22'),
 (9,'gruop9',5,'2019/03/22'),
-(10,'gruop10',4,'2021/03/22');
+(10,'gruop10',4,'2021/03/22'),
+(11,'gruop11','11','2021/03/22');
 -- Table 5: GroupAccount
 --  GroupID: định danh của nhóm
 --  AccountID: định danh của User
@@ -168,7 +169,16 @@ CREATE TABLE answer (
     is_correct 			BOOLEAN
 );
 INSERT INTO `answer`(answer_id,content,question_id,is_correct) 
-values(1,'biet roi',9,1),(2,'khong biet',9,1),(3,'biet',9,0),(4,'vui',1,0),(5,'buon',6,0),(6,'chua biet',9,1),(7,'khong biet',9,1),(8,'biet',4,0),(9,'buon cuoi',9,0),(10,'khoc',8,0);
+values(1,'biet roi',9,1),
+	(2,'khong biet',9,1),
+    (3,'biet',9,0),
+    (4,'vui',1,0),
+    (5,'buon',6,0),
+    (6,'chua biet',9,1),
+    (7,'khong biet',9,1),
+    (8,'biet',4,0),
+    (9,'buon cuoi',9,0),
+    (10,'khoc',8,0);
 -- Table 10: Exam
 --  ExamID: định danh của đề thi (auto increment)
 --  Code: mã đề thi
