@@ -38,7 +38,7 @@ SELECT*FROM`exam`;
 SELECT*FROM`question`;
 SELECT `question`.question_id,`question`.content, count(`exam_question`.question_id) AS 'duoc su dung trong exam' 
 FROM `question` 
-LEFT JOIN `exam_question` 
+RIGHT JOIN `exam_question` 
 ON `question`.question_id=`exam_question`.question_id 
 GROUP BY (`exam_question`.question_id);
 -- Question 8: Lấy ra Question có nhiều câu trả lời nhất  
@@ -124,9 +124,62 @@ SELECT question.content
 -- Exercise 2: Union
 -- Question 17: 
 -- a) Lấy các account thuộc nhóm thứ 1
+select `account`.full_name
+from  `account`
+right join  `group_account`
+on `account`.account_id = `group_account`.account_id
+where `group_account`.group_id=1;
 -- b) Lấy các account thuộc nhóm thứ 2
+select*from`account`;
+select*from`group_account`;
+select `account`.full_name
+from  `account`
+right join  `group_account`
+on `account`.account_id = `group_account`.account_id
+where `group_account`.group_id=2;
 -- c) Ghép 2 kết quả từ câu a) và câu b) sao cho không có record nào trùng nhau
+select*from`account`;
+select*from`group_account`;
+select `account`.full_name
+from  `account`
+right join  `group_account`
+on `account`.account_id = `group_account`.account_id
+where `group_account`.group_id=1
+union 
+select `account`.full_name
+from  `account`
+right join  `group_account`
+on `account`.account_id = `group_account`.account_id
+where `group_account`.group_id=2;
 -- Question 18: 
 -- a) Lấy các group có lớn hơn 5 thành viên
+select*from`account`;
+select*from`group_account`;
+select*from`group`;
+select g.group_name,count(ga.account_id)
+from `group` g
+join `group_account`ga
+on 	 g.group_id = ga.group_id
+group by (g.group_id)
+having count(ga.account_id)>5;
 -- b) Lấy các group có nhỏ hơn 7 thành viên
+select g.group_name,count(ga.account_id)
+from `group` g
+right join `group_account`ga
+on 	 g.group_id = ga.group_id
+group by (g.group_id)
+having count(ga.account_id)<7;
 -- c) Ghép 2 kết quả từ câu a) và câu b)
+select g.group_name,count(ga.account_id)
+from `group` g
+right join `group_account`ga
+on 	 g.group_id = ga.group_id
+group by (g.group_id)
+having count(ga.account_id)>5
+union all
+select g.group_name,count(ga.account_id)
+from `group` g
+right join `group_account`ga
+on 	 g.group_id = ga.group_id
+group by (g.group_id)
+having count(ga.account_id)<7;
