@@ -48,13 +48,13 @@ CREATE TABLE `account`(
 );
 INSERT INTO `account`(account_id,email,user_name,full_name,department_id,position_id,create_date) 
 values(1,'trautre@mail.com','trâu','trâu trẻ',3,2,'2021-03-22'),
-(2,'daodich@mail.com','dao','giao vịt',4,1,'2021-04-21'),
-(3,'loncoi@mail.com','lợn','lợn coi',5,3,'2021-05-22'),
+(2,'daodich@mail.com','dao','dao vịt',4,1,'2021-04-21'),
+(3,'loncoi@mail.com','lợn','lợn coi',5,3,'2009-05-22'),
 (4,'gauden@mail.com','gấu','gấu đen',5,2,'2021-07-22'),
 (5,'meocon@mail.com','mèo','mèo con',3,5,'2021-06-22'),
 (6,'chuotnhat@mail.com','chuột','chuột nhắt',3,2,'2021-09-22'),
 (7,'gari@mail.com','gà','gà ri',3,3,'2021-06-03'),
-(8,'tinhtinh@mail.com','tinh','tinh tinh',7,4,'2021-09-12'),
+(8,'tinhtinh@mail.com','tinh','tinh tinh',7,4,'2008-09-12'),
 (9,'hobao@mail.com','hổ','hổ báo',4,3,'2021-09-02'),
 (10,'thotrang@mail.com','thỏ','thỏ trắng',1,5,'2021-09-22'),
 (11,'chosoi@mail.com','chó','chó sói',2,1,'2019-09-22'),
@@ -155,6 +155,7 @@ values(1,'SQL la gi?', 3,1,3,'2021/10/10'),
 (8,'C++ la gi?', 1,1,9,'2021/10/10'),
 (9,'C++ su dung ra sao?', 3,1,5,'2021/10/10'),
 (10,'C++ ai su dung?', 6,2,2,'2021/10/10');
+
 
 -- Table 9: Answer
 --  AnswerID: định danh của câu trả lời (auto increment)

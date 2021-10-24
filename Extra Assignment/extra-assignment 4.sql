@@ -18,6 +18,8 @@ VALUES
     (8, 'doi noi'),
     (9, 'doi ngoai'),
     (10, 'ton giao');
+    
+    
 
 drop table IF EXISTS employee;
 create table employee(
@@ -59,6 +61,9 @@ VALUES
     (10,'JAVA','2021/10/10'),
     (1,'JAZZ','2021/10/10'),
     (5,'HTML','2021/10/05');
+    
+    
+    
 -- Question 3: Viết lệnh để lấy ra danh sách nhân viên (name) có skill Java
 -- Hướng dẫn: sử dụng UNION
 select * from employee_skill;
@@ -68,25 +73,34 @@ select employee.employee_name, employee_skill.skill_code
 	join employee_skill
     on employee.employee_number= employee_skill.employee_number
     where employee_skill.skill_code="JAVA";
+    
+    
+    
 -- Question 4: Viết lệnh để lấy ra danh sách các phòng ban có >3 nhân viên
 SELECT department.department_name,count(employee.department_number)
-from department 
-join employee
-on department.department_number=employee.department_number
-group by (employee.department_number) 
-ORDER BY count(employee.department_number) desc limit 1;
+FROM department 
+JOIN employee
+ON department.department_number=employee.department_number
+GROUP BY (employee.department_number) 
+HAVING count(employee.department_number) >3;
+
+
+
 -- Question 5: Viết lệnh để lấy ra danh sách nhân viên của mỗi văn phòng ban.
 -- Hướng dẫn: sử dụng GROUP BY
-select department.department_name, GROUP_CONCAT(employee.employee_name)
-from department 
-join employee
-on department.department_number=employee.department_number
-group by (department.department_name);
+SELECT department.department_name, GROUP_CONCAT(employee.employee_name)
+FROM department 
+JOIN employee
+ON department.department_number=employee.department_number
+GROUP BY (department.department_name);
+
+
+
 -- Question 6: Viết lệnh để lấy ra danh sách nhân viên có > 1 skills.
 select employee.employee_name,count(employee_skill.employee_number)
 from employee
 join employee_skill
 on employee.employee_number=employee_skill.employee_number
 group by employee.employee_number
-HAVING count(employee.employee_number)>=2;
+HAVING count(employee.employee_number)>1;
 -- Hướng dẫn: sử dụng DISTINCT
