@@ -220,4 +220,4 @@ create table exam_question(
 	FOREIGN KEY (exam_id) REFERENCES `exam`(exam_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 INSERT INTO exam_question(exam_id,question_id) 
-values(1,10),(2,9),(3,8),(4,7),(5,6),(6,10),(7,4),(8,3),(9,10),(10,1);
+values(1,10),(2,9),(3,8),(4,7),(5,6),(6,10),(7,4),(8,3),(9,10),(10,1),(9,2),(8,2),(7,3),(6,4),(5,4),(4,4);
