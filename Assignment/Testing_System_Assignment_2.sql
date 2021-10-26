@@ -22,10 +22,10 @@ values(1,'marketing'),(2,'sale'),(3,'bao ve'),(4,'nhan su'),(5,'ky thuat'),(6,'t
 DROP TABLE IF EXISTS `position`;
 CREATE TABLE `position`(
 	position_id			TINYINT AUTO_INCREMENT PRIMARY KEY NOT NULL, -- khoá chính chức vụ
-	position_name		ENUM('Dev','Test','Scrum Master','PM','developer' )
+	position_name		ENUM('Dev','Test','Scrum Master','PM','coding' )
 );
 INSERT INTO `position`(position_id,position_name) 
-values(1,'dev'),(2,'test'),(3,'scrum master'),(4,'PM'),(5,'developer');
+values(1,'dev'),(2,'test'),(3,'scrum master'),(4,'PM'),(5,'coding');
 -- Table 3: Account
 --  AccountID: định danh của User (auto increment)
 --  Email:
@@ -49,19 +49,19 @@ CREATE TABLE `account`(
 INSERT INTO `account`(account_id,email,user_name,full_name,department_id,position_id,create_date) 
 values(1,'trautre@mail.com','trâu','trâu trẻ',3,2,'2021-03-22'),
 (2,'daodich@mail.com','dao','dao vịt',4,1,'2021-04-21'),
-(3,'loncoi@mail.com','lợn','lợn coi',5,3,'2009-05-22'),
-(4,'gauden@mail.com','gấu','gấu đen',5,2,'2021-07-22'),
-(5,'meocon@mail.com','mèo','mèo con',3,5,'2021-06-22'),
+(3,'loncoi@mail.com','lợn','lợn coi',1,3,'2009-05-22'),
+(4,'gauden@mail.com','gấu','gấu đen',2,2,'2021-07-22'),
+(5,'meocon@mail.com','mèo','mèo con',3,3,'2021-06-22'),
 (6,'chuotnhat@mail.com','chuột','chuột nhắt',3,2,'2021-09-22'),
 (7,'gari@mail.com','gà','gà ri',3,3,'2021-06-03'),
 (8,'tinhtinh@mail.com','tinh','tinh tinh',7,4,'2008-09-12'),
 (9,'hobao@mail.com','hổ','hổ báo',4,3,'2021-09-02'),
-(10,'thotrang@mail.com','thỏ','thỏ trắng',1,5,'2021-09-22'),
+(10,'thotrang@mail.com','thỏ','thỏ trắng',1,2,'2021-09-22'),
 (11,'chosoi@mail.com','chó','chó sói',2,1,'2019-09-22'),
 (12,'voicon@mail.com','voi','voi con',1,2,'2021-10-22'),
 (13,'casau@mail.com','cá','cá sấu',3,3,'2021-09-22'),
 (14,'bosua@mail.com','bò','bò sữa',4,4,'2021-09-22'),
-(15,'sutu@mail.com','su','su tu',5,5,'2021-09-22');
+(15,'sutu@mail.com','su','su tu',5,1,'2021-09-22');
 -- Table 4: Group
 --  GroupID: định danh của nhóm (auto increment)
 --  GroupName: tên nhóm
@@ -81,13 +81,7 @@ values(1,'gruop1',2,'2021/03/22'),
 (2,'gruop2',5,'2020/03/22'),
 (3,'gruop3',6,'2019/03/22'),
 (4,'gruop4',4,'2012/03/22'),
-(5,'gruop5',1,'2014/03/22'),
-(6,'gruop6',2,'2013/03/22'),
-(7,'gruop7',1,'2015/03/22'),
-(8,'gruop8',9,'2018/03/22'),
-(9,'gruop9',5,'2019/03/22'),
-(10,'gruop10',4,'2021/03/22'),
-(11,'gruop11','11','2021/03/22');
+(5,'gruop5',1,'2014/03/22');
 -- Table 5: GroupAccount
 --  GroupID: định danh của nhóm
 --  AccountID: định danh của User
@@ -102,8 +96,8 @@ create table `group_account`(
     FOREIGN KEY (account_id) REFERENCES account(account_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 INSERT INTO `group_account`(`group_id`,account_id,join_date) 
-values(1,3,'2021/03/22'),(2,8,'2021/03/22'),(3,1,'2021/03/22'),(4,5,'2021/03/22'),(5,6,'2021/03/22'),
-(6,8,'2021/03/22'),(7,10,'2021/03/22'),(8,9,'2021/03/22'),(9,8,'2021/03/22'),(10,4,'2021/03/22');
+values(1,1,'2021/03/22'),(3,2,'2021/03/22'),(3,3,'2021/03/22'),(4,4,'2021/03/22'),(3,5,'2021/03/22'),
+(2,6,'2021/03/22'),(3,7,'2021/03/22'),(3,8,'2021/03/22'),(2,9,'2021/03/22'),(3,10,'2021/03/22');
 -- Table 6: TypeQuestion
 --  TypeID: định danh của loại câu hỏi (auto increment)
 --  TypeName: tên của loại câu hỏi (Essay, Multiple-Choice)
@@ -220,4 +214,4 @@ create table exam_question(
 	FOREIGN KEY (exam_id) REFERENCES `exam`(exam_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 INSERT INTO exam_question(exam_id,question_id) 
-values(1,10),(2,9),(3,8),(4,7),(5,6),(6,10),(7,4),(8,3),(9,10),(10,1);
+values(1,10),(2,9),(3,8),(4,7),(5,6),(6,10),(7,4),(8,3),(9,10),(10,1),(9,2),(8,2),(7,3),(6,4),(5,4),(4,4);
