@@ -1,3 +1,4 @@
+use testing_system;
 -- Exercise 1: Tiếp tục với Database Testing System
 -- (Sử dụng subquery hoặc CTE)
 -- Question 1: Tạo view có chứa danh sách nhân viên thuộc phòng ban sale
@@ -23,13 +24,10 @@ having count(a.full_name) = (select max(cou_a)
 									group by a.full_name ) max )
 );
 -- Question 3: Tạo view có chứa câu hỏi có những content quá dài (content quá 300 từ được coi là quá dài) và xóa nó đi
-select * from `question`;
-delete
+
+select content
 from `question`
 where length(content)>300;
+
 -- Question 4: Tạo view có chứa danh sách các phòng ban có nhiều nhân viên nhất 
 -- Question 5: Tạo view có chứa tất các các câu hỏi do user họ Nguyễn tạo
--- Chú ý:
---  Viết đúng coding convention
---  Tuần thủ các best practice
---  Không chép bài người khác (sẽ có hình thức phạt nếu bị phát hiện)
