@@ -61,7 +61,8 @@ values(1,'trautre@mail.com','trâu','trâu trẻ',3,2,'2021-03-22'),
 (12,'voicon@mail.com','voi','voi con',1,2,'2021-10-22'),
 (13,'casau@mail.com','cá','cá sấu',3,3,'2021-09-22'),
 (14,'bosua@mail.com','bò','bò sữa',4,4,'2021-09-22'),
-(15,'sutu@mail.com','su','su tu',5,1,'2021-09-22');
+(15,'sutu@mail.com','su','su tu',5,1,'2021-09-22'),
+(16,'anguyen@mail.com','a','Nguyễn Văn A',2,2,'2016-09-22');
 -- Table 4: Group
 --  GroupID: định danh của nhóm (auto increment)
 --  GroupName: tên nhóm
@@ -78,7 +79,7 @@ create table `group`(
 INSERT INTO `group`(`group_id`,group_name,creator_id,create_date) 
 
 values(1,'gruop1',2,'2021/03/22'),
-(2,'gruop2',5,'2020/03/22'),
+(2,'gruop2',15,'2020/03/22'),
 (3,'gruop3',6,'2019/03/22'),
 (4,'gruop4',4,'2012/03/22'),
 (5,'gruop5',1,'2014/03/22');
@@ -147,7 +148,7 @@ values(1,'SQL la gi?', 3,1,3,'2021/10/10'),
 (6,'cau hoi JS su dung ra sao?', 5,2,5,'2021/10/10'),
 (7,'JS de lam gi?', 1,2,5,'2021/10/10'),
 (8,'C++ la gi?', 1,1,9,'2021/10/10'),
-(9,'C++ su dung ra sao?', 3,1,5,'2021/10/10'),
+(9,'C++ su dung ra sao?', 3,1,16,'2021/10/10'),
 (10,'C++ ai su dung?', 6,2,2,'2021/10/10');
 
 
