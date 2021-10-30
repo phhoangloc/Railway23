@@ -15,8 +15,7 @@ SELECT a.full_name, d.*
 SELECT * FROM `account`;
 SELECT *
 	FROM `account`
-	WHERE create_date < '2010-12-20'
-;
+	WHERE create_date > '2010-12-20';
 
 -- Question 3: Viết lệnh để lấy ra tất cả các developer 
 SELECT * FROM `position`;
@@ -46,16 +45,16 @@ SELECT d.department_name
     SELECT * FROM exam;
     SELECT * FROM exam_question; 
     
-    SELECT q.content, count(q.question_id)
+    SELECT q.content, count(eq.exam_id) 'số đề thi'
 		FROM question 	q
-		LEFT JOIN exam_question eq
+		JOIN exam_question eq
 		ON q.question_id=eq.question_id
 		GROUP BY (q.question_id)
 		HAVING count(q.question_id)=(
 			SELECT max(cnum) 
-			FROM (SELECT count(q.question_id) cnum
+			FROM (SELECT count(eq.exam_id) cnum
 				FROM question q
-				LEFT JOIN exam_question eq
+				JOIN exam_question eq
 				ON q.question_id=eq.question_id
 				GROUP BY (q.question_id)
                 )tbl
@@ -73,7 +72,7 @@ SELECT d.department_name
 -- Question 7: Thông kê mỗi Question được sử dụng trong bao nhiêu Exam
 	SELECT* FROM question;
     SELECT* FROM exam_question;
-    SELECT q.content, count(eq.question_id) 'so lan su dung trong exam'
+    SELECT q.content, count(eq.exam_id) 'so lan su dung trong exam'
 		FROM question q
 		LEFT JOIN exam_question eq
 		ON q.question_id = eq.question_id
@@ -81,13 +80,13 @@ SELECT d.department_name
 
 -- Question 8: Lấy ra Question có nhiều câu trả lời nhất
 SELECT* FROM answer;
-	SELECT q.content,count(an.question_id)
+	SELECT q.content,count(an.answer_id)
 	FROM question q
 	LEFT JOIN answer an
 	ON q.question_id = an.question_id
 	GROUP BY q.question_id
-    HAVING count(an.question_id)=(SELECT max(cnum) from(
-		SELECT count(an.question_id) cnum
+    HAVING count(an.answer_id)=(SELECT max(cnum) from(
+		SELECT count(an.answer_id) cnum
         FROM question q
 		LEFT JOIN answer an
 		ON q.question_id = an.question_id
@@ -108,15 +107,15 @@ SELECT * FROM `group`;
 -- Question 10: Tìm chức vụ có ít người nhất
 SELECT * FROM `position`;
 SELECT * FROM `account`;
-	SELECT p.position_name, count(a.position_id) 'số lượng'
+	SELECT p.position_name, count(a.account_id) 'số lượng'
 	FROM position p
 	LEFT JOIN `account` a
 	ON p.position_id = a.position_id
 		GROUP BY p.position_id
-        HAVING count(a.position_id)=(
+        HAVING count(a.account_id)=(
 			SELECT min(cnum) 
             FROM(
-                	SELECT count(a.position_id) cnum
+                	SELECT count(a.account_id) cnum
 					FROM position p
 					LEFT JOIN `account` a
 					ON p.position_id = a.position_id
@@ -130,7 +129,7 @@ SELECT d.department_name, p.position_name, count(p.position_id) 'số người'
     ON d.department_id = a.department_id
     LEFT JOIN `position` p
     ON p.position_id = a.position_id
-    GROUP BY d.department_name,p.position_name;
+    GROUP BY d.department_id,p.position_name;
 
 -- Question 12: Lấy thông tin chi tiết của câu hỏi bao gồm: thông tin cơ bản của 
 	-- question, 
@@ -155,6 +154,14 @@ SELECT type_question.type_name 'dạng câu hỏi', count(type_question.type_nam
 	ON question.type_id = type_question.type_id
     GROUP BY (type_question.type_name);
     
+SELECT tq.type_name 'dạng câu hỏi', count(q.question_id)
+	FROM  type_question tq
+	LEFT JOIN question q
+	ON tq.type_id = q.type_id
+    GROUP BY (tq.type_id);
+    
+    select* from type_question;
+    select* from question;
     
 -- Question 14:Lấy ra group không có account nào
 SELECT * from `group`;
@@ -169,11 +176,11 @@ SELECT * from `group_account`;
 -- Question 16: Lấy ra question không có answer nào
 SELECT* FROM question;
 SELECT* FROM answer;
-	SELECT q.content
+	SELECT *  -- q.content
 	FROM question q
     LEFT JOIN answer an
     ON q.question_id = an.question_id
-    WHERE an.content IS NULL;
+    WHERE an.question_id IS NULL;
 	
 -- Exercise 2: Union
 -- Question 17: 

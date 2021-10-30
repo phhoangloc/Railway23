@@ -15,7 +15,8 @@ CREATE TABLE department(
 	department_name		VARCHAR(50) NOT NULL UNIQUE
 );
 INSERT INTO department(department_id,department_name) 
-values(1,'marketing'),(2,'sale'),(3,'bao ve'),(4,'nhan su'),(5,'ky thuat'),(6,'tai chinh'),(7,'pho dam doc'),(8,'giam doc'),(9,'thu ki'),(10,'ban hang');
+VALUES(1,'marketing'),(2,'sale'),(3,'bao ve'),(4,'nhan su'),(5,'ky thuat'),(6,'tai chinh'),(7,'pho dam doc'),(8,'giam doc'),(9,'thu ki'),(10,'ban hang'),(11,'phong chờ');
+
 -- Table 2: Position
 --  PositionID: định danh của chức vụ (auto increment)
 --  PositionName: tên chức vụ (Dev, Test, Scrum Master, PM)
@@ -25,7 +26,8 @@ CREATE TABLE `position`(
 	position_name		ENUM('Dev','Test','Scrum Master','PM','coding' )
 );
 INSERT INTO `position`(position_id,position_name) 
-values(1,'dev'),(2,'test'),(3,'scrum master'),(4,'PM'),(5,'coding');
+VALUES(1,'dev'),(2,'test'),(3,'scrum master'),(4,'PM'),(5,'coding');
+
 -- Table 3: Account
 --  AccountID: định danh của User (auto increment)
 --  Email:
@@ -47,7 +49,7 @@ CREATE TABLE `account`(
     FOREIGN KEY (department_id) REFERENCES department(department_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 INSERT INTO `account`(account_id,email,user_name,full_name,department_id,position_id,create_date) 
-values(1,'trautre@mail.com','trâu','trâu trẻ',3,2,'2021-03-22'),
+VALUES(1,'trautre@mail.com','trâu','trâu trẻ',3,2,'2021-03-22'),
 (2,'daodich@mail.com','dao','dao vịt',4,1,'2021-04-21'),
 (3,'loncoi@mail.com','lợn','lợn coi',1,3,'2009-05-22'),
 (4,'gauden@mail.com','gấu','gấu đen',2,2,'2021-07-22'),
@@ -63,13 +65,15 @@ values(1,'trautre@mail.com','trâu','trâu trẻ',3,2,'2021-03-22'),
 (14,'bosua@mail.com','bò','bò sữa',4,4,'2021-09-22'),
 (15,'sutu@mail.com','su','su tu',5,1,'2021-09-22'),
 (16,'anguyen@mail.com','a','Nguyễn Văn A',2,2,'2016-09-22');
+
+
 -- Table 4: Group
 --  GroupID: định danh của nhóm (auto increment)
 --  GroupName: tên nhóm
 --  CreatorID: id của người tạo group
 --  CreateDate: ngày tạo group
 DROP TABLE IF EXISTS `group`;
-create table `group`(
+CREATE TABLE `group`(
 	`group_id`			TINYINT NOT NULL AUTO_INCREMENT PRIMARY KEY, -- khoá chính gruop
 	group_name			VARCHAR(50) UNIQUE NOT NULL, -- tên nhóm không trùng
 	creator_id			TINYINT NOT NULL, 
@@ -77,18 +81,18 @@ create table `group`(
     FOREIGN KEY (creator_id) REFERENCES `account` (`account_id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 INSERT INTO `group`(`group_id`,group_name,creator_id,create_date) 
+VALUES(1,'group1',2,'2021/03/22'),
+(2,'group2',15,'2020/03/22'),
+(3,'group3',6,'2019/03/22'),
+(4,'group4',4,'2012/03/22'),
+(5,'group5',1,'2014/03/22');
 
-values(1,'gruop1',2,'2021/03/22'),
-(2,'gruop2',15,'2020/03/22'),
-(3,'gruop3',6,'2019/03/22'),
-(4,'gruop4',4,'2012/03/22'),
-(5,'gruop5',1,'2014/03/22');
 -- Table 5: GroupAccount
 --  GroupID: định danh của nhóm
 --  AccountID: định danh của User
 --  JoinDate: Ngày user tham gia vào nhóm
 DROP TABLE IF EXISTS `group_account`;
-create table `group_account`(
+CREATE TABLE `group_account`(
 	`group_id`			TINYINT NOT NULL,
 	account_id			TINYINT NOT NULL,
 	join_date			DATE,
@@ -97,30 +101,33 @@ create table `group_account`(
     FOREIGN KEY (account_id) REFERENCES account(account_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 INSERT INTO `group_account`(`group_id`,account_id,join_date) 
-values(1,1,'2021/03/22'),(3,2,'2021/03/22'),(3,3,'2021/03/22'),(4,4,'2021/03/22'),(3,5,'2021/03/22'),
+VALUES(1,1,'2021/03/22'),(3,2,'2021/03/22'),(3,3,'2021/03/22'),(4,4,'2021/03/22'),(3,5,'2021/03/22'),
 (2,6,'2021/03/22'),(3,7,'2021/03/22'),(3,8,'2021/03/22'),(2,9,'2021/03/22'),(3,10,'2021/03/22');
+
 -- Table 6: TypeQuestion
 --  TypeID: định danh của loại câu hỏi (auto increment)
 --  TypeName: tên của loại câu hỏi (Essay, Multiple-Choice)
 DROP TABLE IF EXISTS type_question;
-create table type_question(
+CREATE TABLE type_question(
 	type_id				TINYINT AUTO_INCREMENT PRIMARY KEY, --  khoá chính typequestion
 	`type_name`			ENUM('essay','multiple-choice') -- chỉ là essay và multiple-choice
 );
 INSERT INTO `type_question`(`type_id`,`type_name`) 
-values(1,'essay'),(2,'multiple-choice');
+VALUES(1,'essay'),(2,'multiple-choice');
+
 -- Table 7: CategoryQuestion
 --  CategoryID: định danh của chủ đề câu hỏi (auto increment)
 --  CategoryName: tên của chủ đề câu hỏi (Java, .NET, SQL, Postman, Ruby,...)
 DROP TABLE IF EXISTS category_question;
-create table category_question(
+CREATE TABLE category_question(
 	category_id			TINYINT AUTO_INCREMENT PRIMARY KEY NOT NULL, --  khoá chính categoryquestion
 	category_name		VARCHAR(10)  NOT NULL UNIQUE
 );
 INSERT INTO `category_question`(`category_id`,`category_name`) 
-values(1,'JAVA'),(2,'SQL'),(3,'NET'),(4,'RUBY'),(5,'HTML'),
+VALUES(1,'JAVA'),(2,'SQL'),(3,'NET'),(4,'RUBY'),(5,'HTML'),
 (6,'C++'),(7,'C#'),(8,'JS'),(9,'CSS'),(10,'WP');
--- Table 8: Question
+
+-- Table 8: Question 
 --  QuestionID: định danh của câu hỏi (auto increment)
 --  Content: nội dung của câu hỏi
 --  CategoryID: định danh của chủ đề câu hỏi
@@ -128,28 +135,28 @@ values(1,'JAVA'),(2,'SQL'),(3,'NET'),(4,'RUBY'),(5,'HTML'),
 --  CreatorID: id của người tạo câu hỏi
 --  CreateDate: ngày tạo câu hỏi
 DROP TABLE IF EXISTS question;
-create table question(
+CREATE TABLE question(
 	question_id 		TINYINT AUTO_INCREMENT PRIMARY KEY NOT NULL, -- khoá chính câu hỏi
 	content				VARCHAR(255) NOT NULL, -- nội dung câu hỏi
 	category_id			TINYINT NOT NULL, -- khoá ngoại
 	type_id				TINYINT NOT NULL, -- khoá ngoại
 	creator_id			TINYINT NOT NULL, 
-	create_day			DATE, 
+	create_date			DATE, 
     FOREIGN KEY (creator_id) REFERENCES `account`(`account_id`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (category_id) REFERENCES category_question(category_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (type_id) REFERENCES type_question(type_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-INSERT INTO `question`(`question_id`,`content`,category_id,type_id,creator_id,create_day) 
-values(1,'SQL la gi?', 3,1,3,'2021/10/10'),
-(2,'SQL de lam gi?', 3,2,5,'2021/10/10'),
-(3,'C++ su dung ra sao?', 1,2,5,'2021/10/10'),
+INSERT INTO `question`(`question_id`,`content`,category_id,type_id,creator_id,create_date) 
+VALUES(1,'SQL la gi?', 3,1,3,'2021/10/10'),
+(2,'SQL de lam gi?', 3,2,5,'2021/2/10'),
+(3,'C++ su dung ra sao?', 1,2,5,'2021/3/10'),
 (4,'HTML su dung ra sao?', 1,2,7,'2021/10/10'),
-(5,'CSS su dung ra sao?', 1,1,5,'2021/10/10'),
-(6,'cau hoi JS su dung ra sao?', 5,2,5,'2021/10/10'),
-(7,'JS de lam gi?', 1,2,5,'2021/10/10'),
+(5,'CSS su dung ra sao?', 1,1,5,'2021/4/10'),
+(6,'cau hoi JS su dung ra sao?', 5,2,5,'2021/6/10'),
+(7,'JS de lam gi?', 1,2,5,'2021/9/10'),
 (8,'C++ la gi?', 1,1,9,'2021/10/10'),
-(9,'C++ su dung ra sao?', 3,1,16,'2021/10/10'),
-(10,'C++ ai su dung?', 6,2,2,'2021/10/10');
+(9,'C++ su dung ra sao?', 3,1,16,'2021/11/10'),
+(10,'C++ ai su dung?', 6,2,2,'2021/12/10');
 
 
 -- Table 9: Answer
@@ -165,7 +172,7 @@ CREATE TABLE answer (
     is_correct 			BOOLEAN
 );
 INSERT INTO `answer`(answer_id,content,question_id,is_correct) 
-values(1,'biet roi',9,1),
+VALUES(1,'biet roi',9,1),
 	(2,'khong biet',9,1),
     (3,'biet',9,0),
     (4,'vui',1,0),
@@ -175,6 +182,7 @@ values(1,'biet roi',9,1),
     (8,'biet',4,0),
     (9,'buon cuoi',9,0),
     (10,'khoc',8,0);
+    
 -- Table 10: Exam
 --  ExamID: định danh của đề thi (auto increment)
 --  Code: mã đề thi
@@ -184,7 +192,7 @@ values(1,'biet roi',9,1),
 --  CreatorID: id của người tạo đề thi
 --  CreateDate: ngày tạo đề thi
 DROP TABLE IF EXISTS exam;
-create table exam(
+CREATE TABLE exam(
 	exam_id				TINYINT AUTO_INCREMENT PRIMARY KEY NOT NULL, -- khoá chính exam
 	`code`				VARCHAR(8) NOT NULL UNIQUE, 
 	title				VARCHAR(250) NOT NULL,
@@ -194,7 +202,7 @@ create table exam(
 	create_date			DATE
 );
 INSERT INTO `exam`(exam_id,`code`,title,category_id,duration,creator_id,create_date) 
-values(1,'abc111','bai thi TIN HOC',3,60,1,'2021-10-19'),
+VALUES(1,'abc111','bai thi TIN HOC',3,60,1,'2021-10-19'),
 (2,'abc222','bai thi SQL',3,60,1,'2012-10-19'),
 (3,'abc333','bai thi Word',1,90,1,'2015-10-19'),
 (4,'abc444','bai thi eccel',1,120,1,'2021-10-19'),
@@ -204,15 +212,19 @@ values(1,'abc111','bai thi TIN HOC',3,60,1,'2021-10-19'),
 (8,'abc888','bai thi C++',3,45,1,'2021-10-19'),
 (9,'abc999','bai thi JAVA',1,75,1,'2021-10-19'),
 (10,'abc101','bai thi PYTHON',1,60,1,'2021-10-19');
+
+
 -- Table 11: ExamQuestion
 --  ExamID: định danh của đề thi
 --  QuestionID: định danh của câu hỏi
 DROP TABLE IF EXISTS exam_question;
-create table exam_question(
+CREATE TABLE exam_question(
 	exam_id				TINYINT NOT NULL,
 	question_id			TINYINT NOT NULL,
     FOREIGN KEY (question_id) REFERENCES question(question_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (exam_id) REFERENCES `exam`(exam_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 INSERT INTO exam_question(exam_id,question_id) 
-values(1,10),(2,9),(3,8),(4,7),(5,6),(6,10),(7,4),(8,3),(9,10),(10,1),(9,2),(8,2),(7,3),(6,4),(5,4),(4,4);
+VALUES(1,10),(2,9),(3,8),(4,7),(5,6),(6,10),(7,4),(8,3),(9,10),(10,1),(9,2),(8,2),(7,3),(6,4),(5,4),(4,4);
+
+-- Error Code: 1064. You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VALUES' at line 1
