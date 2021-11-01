@@ -85,7 +85,7 @@ VALUES(1,'group1',2,'2021/03/22'),
 (2,'group2',15,'2020/03/22'),
 (3,'group3',6,'2019/03/22'),
 (4,'group4',4,'2012/03/22'),
-(5,'group5',1,'2014/03/22');
+(5,'trâu',1,'2014/03/22');
 
 -- Table 5: GroupAccount
 --  GroupID: định danh của nhóm
@@ -101,8 +101,8 @@ CREATE TABLE `group_account`(
     FOREIGN KEY (account_id) REFERENCES account(account_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 INSERT INTO `group_account`(`group_id`,account_id,join_date) 
-VALUES(1,1,'2021/03/22'),(3,2,'2021/03/22'),(3,3,'2021/03/22'),(4,4,'2021/03/22'),(3,5,'2021/03/22'),
-(2,6,'2021/03/22'),(3,7,'2021/03/22'),(3,8,'2021/03/22'),(2,9,'2021/03/22'),(3,10,'2021/03/22');
+VALUES(1,1,'2021/03/22'),(3,2,'2018/03/22'),(3,3,'2019/03/22'),(4,4,'2010/03/22'),(3,5,'2021/03/22'),
+(2,6,'2017/03/22'),(3,7,'2021/03/22'),(3,8,'2021/03/22'),(2,9,'2021/03/22'),(3,10,'2021/03/22');
 
 -- Table 6: TypeQuestion
 --  TypeID: định danh của loại câu hỏi (auto increment)

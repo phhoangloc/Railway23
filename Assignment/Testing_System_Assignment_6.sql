@@ -55,9 +55,9 @@ select* from `question`;
 -- Question 4: Tạo store để trả ra id của type question có nhiều câu hỏi nhất
 DROP PROCEDURE IF EXISTS sp_type_co_nhieu_cau_hoi_nhat;
 	DELIMITER $$
-	CREATE PROCEDURE sp_type_co_nhieu_cau_hoi_nhat ()
+	CREATE PROCEDURE sp_type_co_nhieu_cau_hoi_nhat (OUT nameout INT)
     BEGIN
-		SELECT tq.type_id
+		SELECT tq.type_id INTO nameout
 		FROM type_question tq
         RIGHT JOIN question q
         ON tq.type_id = q.type_id
@@ -71,16 +71,28 @@ DROP PROCEDURE IF EXISTS sp_type_co_nhieu_cau_hoi_nhat;
 							group by tq.type_id) tbl);
 	END; $$
     DELIMITER  
-    call sp_type_co_nhieu_cau_hoi_nhat();
-    
+    set @typenameout =0;
+	call sp_type_co_nhieu_cau_hoi_nhat(@typenameout);
+    select @typenameout;
     
     
 -- Question 5: Sử dụng store ở question 4 để tìm ra tên của type question
+	DROP PROCEDURE IF EXISTS sp_type_name_co_nhieu_cau_hoi_nhat;
+		DELIMITER $$
+		CREATE PROCEDURE sp_type_name_co_nhieu_cau_hoi_nhat()
+        begin
+			declare typeid INT;
+            set typeid=0;
+            call sp_type_co_nhieu_cau_hoi_nhat(typeid);
+            select type_name from type_question where type_id=typeid;
+		end $$
+		DELIMITER ;
+	call sp_type_name_co_nhieu_cau_hoi_nhat();
     
-    set @typenameout=2;
-    select tq.type_name from type_question tq where type_id = @typenameout;
+    
 -- Question 6: Viết 1 store cho phép người dùng nhập vào 1 chuỗi và trả về group có tên 
-	-- chứa chuỗi của người dùng nhập vào hoặc trả về user có username chứa chuỗi của người dùng nhập vào
+	-- chứa chuỗi của người dùng nhập vào hoặc 
+    -- trả về user có username chứa chuỗi của người dùng nhập vào
     DROP PROCEDURE IF EXISTS sp_input_group;
     DELIMITER $$
 	CREATE PROCEDURE sp_input_group (in input varchar(50))
@@ -89,17 +101,19 @@ DROP PROCEDURE IF EXISTS sp_type_co_nhieu_cau_hoi_nhat;
         FROM `group` g 
         WHERE g.group_name LIKE
 			CONCAT("%",input,"%")
-		UNION
-		SELECT a.user_name 
+		UNION ALL
+		SELECT a.user_name as 'kết quả tìm kiếm'
         FROM `account` a 
         WHERE a.user_name LIKE
 			CONCAT("%",input,"%");
 	END$$
-    DELIMITER  
+    DELIMITER ;
+    call sp_input_group('g');
+	
     
-    call sp_input_group('lợn');
-        
-		
+    
+		select * from `account`;
+        select * from `group`;
 -- Question 7: Viết 1 store cho phép người dùng nhập vào thông tin fullName, email và trong store sẽ tự động gán:
 -- username sẽ giống email nhưng bỏ phần @..mail đi
 -- positionID: sẽ có default là developer
@@ -116,12 +130,12 @@ select* from `account`;
         
         insert into `account`(email,full_name,user_name,position_id,department_id)
         values(emailin,fullnamein,de_user_name,de_position_id,de_derpartment_id);
+        
+        select * from  `account` -- order by account_id desc limit 1;
+        where full_name=fullnamein;
 	end$$
     DELIMITER ;
-     call sp_input_fullname('Nguyễn Văn Bê','benguyen@mail.com');
-     select * from `account` 
-     where full_name = 'Nguyễn Văn Bê'
-     and email = 'benguyen@mail.com' ;
+	call sp_input_fullname('Nguyễn Văn Bê','benguyen@mail.com');
 
 
 -- Question 8: Viết 1 store cho phép người dùng nhập vào Essay hoặc Multiple-Choice
@@ -167,20 +181,78 @@ select* from `exam`;
 DROP PROCEDURE IF EXISTS sp_xoa_examid_theo_nam;
 DELIMITER $$
 CREATE PROCEDURE sp_xoa_examid_theo_nam()
-	BEGIN 
-		DELETE 
-		FROM `exam`
-		WHERE year(create_date) = (year(now)-3);
-	END$$
+	BEGIN
+    END$$
 DELIMITER ;
+
     
 -- Question 11: Viết store cho phép người dùng xóa phòng ban bằng cách người dùng  
 	-- nhập vào tên phòng ban và các account thuộc phòng ban đó sẽ được 
 	-- chuyển về phòng ban default là phòng ban chờ việc
+    DROP PROCEDURE IF EXISTS sp_xoa_phong_ban_theo_nguoi_dung_nhap;
+	DELIMITER $$
+	CREATE PROCEDURE sp_xoa_phong_ban_theo_nguoi_dung_nhap(IN typein varchar(30))
+		BEGIN
+        
+			update `account`
+            set department_id = (
+				select department_id
+				from department
+				where department_name = 'phong chờ')
+            where department_id = (
+				select department_id
+				from department
+				where department_name = typein);
+           
+            delete from department
+            where department_name=typein;
+            
+        END$$
+	DELIMITER ;
     
-    
+    call sp_xoa_phong_ban_theo_nguoi_dung_nhap('sale');
+    select * 
+    from department d
+    left join `account` a
+    on d.department_id=a.department_id;
 -- Question 12: Viết store để in ra mỗi tháng có bao nhiêu câu hỏi được tạo trong năm nay
-
-
+	DROP PROCEDURE IF EXISTS sp_so_cau_hoi_tao_ra_theo_thang_trong_nam;
+	DELIMITER $$
+	CREATE PROCEDURE sp_so_cau_hoi_tao_ra_theo_thang_trong_nam()
+    begin
+		WITH cte_12thang as (
+			select 1 as 'thang'
+			union
+            select 2 as 'thang'
+			union
+            select 3 as 'thang'
+			union
+            select 4 as 'thang'
+			union
+            select 5 as 'thang'
+			union
+            select 6 as 'thang'
+			union
+            select 7 as 'thang'
+			union
+            select 8 as 'thang'
+			union
+            select 9 as 'thang'
+			union
+            select 10 as 'thang'
+			union
+            select 11 as 'thang'
+			union
+            select 12 as 'thang'
+		),
+        cte_nhung_cau_hoi as (
+        select * from question where year(create_date) = year(curdate()))
+        SELECT c12.thang, count(cq.question_id) AS so_luong
+			FROM cte_12thang c12 LEFT JOIN cte_nhung_cau_hoi cq
+			ON c12.thang = MONTH(cq.create_date)
+			GROUP BY c12.thang;
+	END $$
+DELIMITER ;  
+		
 -- Question 13: Viết store để in ra mỗi tháng có bao nhiêu câu hỏi được tạo trong 6 tháng gần đây nhất
  -- (Nếu tháng nào không có thì sẽ in ra là "không có câu hỏi nào trong tháng")
