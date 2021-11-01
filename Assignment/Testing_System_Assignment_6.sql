@@ -215,44 +215,58 @@ DELIMITER ;
     from department d
     left join `account` a
     on d.department_id=a.department_id;
+    
+    
 -- Question 12: Viết store để in ra mỗi tháng có bao nhiêu câu hỏi được tạo trong năm nay
 	DROP PROCEDURE IF EXISTS sp_so_cau_hoi_tao_ra_theo_thang_trong_nam;
 	DELIMITER $$
 	CREATE PROCEDURE sp_so_cau_hoi_tao_ra_theo_thang_trong_nam()
     begin
-		WITH cte_12thang as (
-			select 1 as 'thang'
-			union
-            select 2 as 'thang'
-			union
-            select 3 as 'thang'
-			union
-            select 4 as 'thang'
-			union
-            select 5 as 'thang'
-			union
-            select 6 as 'thang'
-			union
-            select 7 as 'thang'
-			union
-            select 8 as 'thang'
-			union
-            select 9 as 'thang'
-			union
-            select 10 as 'thang'
-			union
-            select 11 as 'thang'
-			union
-            select 12 as 'thang'
-		),
-        cte_nhung_cau_hoi as (
-        select * from question where year(create_date) = year(curdate()))
-        SELECT c12.thang, count(cq.question_id) AS so_luong
-			FROM cte_12thang c12 LEFT JOIN cte_nhung_cau_hoi cq
-			ON c12.thang = MONTH(cq.create_date)
-			GROUP BY c12.thang;
+		drop TEMPORARY table IF EXISTS tbl_so_thang_trong_nam; -- tao bang tam
+        create temporary table tbl_so_thang_trong_nam(
+			thang INT);
+		insert into tbl_so_thang_trong_nam(thang)
+        values (1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12);
+        
+        SELECT tbl.thang, count(ye.question_id) AS so_luong_cau_hoi_trong_nam -- subquery
+			FROM tbl_so_thang_trong_nam as tbl
+            LEFT JOIN  (select * from question where year(create_date) = year(curdate())) ye
+			ON tbl.thang = MONTH(ye.create_date)
+			GROUP BY tbl.thang;
 	END $$
 DELIMITER ;  
+
+call sp_so_cau_hoi_tao_ra_theo_thang_trong_nam();
 		
 -- Question 13: Viết store để in ra mỗi tháng có bao nhiêu câu hỏi được tạo trong 6 tháng gần đây nhất
  -- (Nếu tháng nào không có thì sẽ in ra là "không có câu hỏi nào trong tháng")
+ 
+ DROP PROCEDURE IF EXISTS sp_so_cau_hoi_tao_ra_theo_thang_trong_6_thang_gan_nhat;
+	DELIMITER $$
+	CREATE PROCEDURE sp_so_cau_hoi_tao_ra_theo_thang_trong_6_thang_gan_nhat()
+    begin
+		drop TEMPORARY table IF EXISTS tbl_6_thang_gan_nhat; -- tao bang tam
+        create temporary table tbl_6_thang_gan_nhat(
+			thang INT);
+		insert into tbl_6_thang_gan_nhat(thang)
+        values 
+        (month(date_sub(curdate(), Interval 5 month))),
+        (month(date_sub(curdate(), Interval 4 month))),
+        (month(date_sub(curdate(), Interval 3 month))),
+        (month(date_sub(curdate(), Interval 2 month))),
+        (month(date_sub(curdate(), Interval 1 month))),
+        (month(now()));
+        
+        select tbl6.thang,case when 
+				count(ye.question_id) = 0
+                then 'khong co cau hoi'
+				else count(ye.question_id) 
+			END as 'so luong cau hoi'
+        from tbl_6_thang_gan_nhat tbl6
+        left join (select * from question where create_date >= date_sub(now(),interval 6 month) 
+											and create_date <= curdate()) ye
+        ON tbl6.thang = MONTH(ye.create_date)
+			GROUP BY (tbl6.thang);
+        END $$
+DELIMITER ;  
+	call sp_so_cau_hoi_tao_ra_theo_thang_trong_6_thang_gan_nhat;
