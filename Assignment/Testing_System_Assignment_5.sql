@@ -30,7 +30,7 @@ drop view IF EXISTS v_question3;
 CREATE view v_question3 as (
 select q.content
 from `question` q
-where (LENGTH(content) - LENGTH(REPLACE(content, ' ', '')) + 1 < 300)
+where (LENGTH(content) - LENGTH(REPLACE(content,'', '')) + 1 < 300)
 );
 delete from v_question3;
 

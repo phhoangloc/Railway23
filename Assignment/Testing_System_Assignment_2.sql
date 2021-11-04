@@ -15,7 +15,7 @@ CREATE TABLE department(
 	department_name		VARCHAR(50) NOT NULL UNIQUE
 );
 INSERT INTO department(department_id,department_name) 
-VALUES(1,'marketing'),(2,'sale'),(3,'bao ve'),(4,'nhan su'),(5,'ky thuat'),(6,'tai chinh'),(7,'pho dam doc'),(8,'giam doc'),(9,'thu ki'),(10,'ban hang'),(11,'phong chờ');
+VALUES(1,'marketing'),(2,'sale'),(3,'bao ve'),(4,'nhan su'),(5,'ky thuat'),(6,'tai chinh'),(7,'pho dam doc'),(8,'giam doc'),(9,'thu ki'),(10,'ban hang'),(11,'phòng chờ');
 
 -- Table 2: Position
 --  PositionID: định danh của chức vụ (auto increment)
@@ -42,29 +42,30 @@ CREATE TABLE `account`(
 	`email`				VARCHAR(50) UNIQUE NOT NULL, -- không trùng 
 	user_name			VARCHAR(20) UNIQUE NOT NULL, -- không trùng
 	full_name			VARCHAR(30) NOT NULL, 
-	department_id		TINYINT NOT NULL, -- khoá ngoại
+	department_id		TINYINT, -- khoá ngoại
 	position_id			TINYINT NOT NULL, -- khoá ngoại
 	create_date			DATE,
+    gender				varchar(10),
     FOREIGN KEY (position_id) REFERENCES `position`(position_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (department_id) REFERENCES department(department_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-INSERT INTO `account`(account_id,email,user_name,full_name,department_id,position_id,create_date) 
-VALUES(1,'trautre@mail.com','trâu','trâu trẻ',3,2,'2021-03-22'),
-(2,'daodich@mail.com','dao','dao vịt',4,1,'2021-04-21'),
-(3,'loncoi@mail.com','lợn','lợn coi',1,3,'2009-05-22'),
-(4,'gauden@mail.com','gấu','gấu đen',2,2,'2021-07-22'),
-(5,'meocon@mail.com','mèo','mèo con',3,3,'2021-06-22'),
-(6,'chuotnhat@mail.com','chuột','chuột nhắt',3,2,'2021-09-22'),
-(7,'gari@mail.com','gà','gà ri',3,3,'2021-06-03'),
-(8,'tinhtinh@mail.com','tinh','tinh tinh',7,4,'2008-09-12'),
-(9,'hobao@mail.com','hổ','hổ báo',4,3,'2021-09-02'),
-(10,'thotrang@mail.com','thỏ','thỏ trắng',1,2,'2021-09-22'),
-(11,'chosoi@mail.com','chó','chó sói',2,1,'2019-09-22'),
-(12,'voicon@mail.com','voi','voi con',1,2,'2021-10-22'),
-(13,'casau@mail.com','cá','cá sấu',3,3,'2021-09-22'),
-(14,'bosua@mail.com','bò','bò sữa',4,4,'2021-09-22'),
-(15,'sutu@mail.com','su','su tu',5,1,'2021-09-22'),
-(16,'anguyen@mail.com','a','Nguyễn Văn A',2,2,'2016-09-22');
+INSERT INTO `account`(account_id,email,user_name,full_name,department_id,position_id,create_date,gender) 
+VALUES(1,'admin@gmail.com','trâu','trâu trẻ',3,2,'2021-03-22','F'),
+(2,'daodich@mail.com','dao','dao vịt',4,1,'2021-04-21','F'),
+(3,'loncoi@mail.com','lợn','lợn coi',1,3,'2009-05-22','M'),
+(4,'gauden@mail.com','gấu','gấu đen',2,2,'2021-07-22','M'),
+(5,'meocon@mail.com','mèo','mèo con',3,3,'2021-06-22','F'),
+(6,'chuotnhat@mail.com','chuột','chuột nhắt',3,2,'2021-09-22','M'),
+(7,'gari@mail.com','gà','gà ri',3,3,'2021-06-03','M'),
+(8,'tinhtinh@mail.com','tinh','tinh tinh',7,4,'2008-09-12','M'),
+(9,'hobao@mail.com','hổ','hổ báo',4,3,'2021-09-02','F'),
+(10,'thotrang@mail.com','thỏ','thỏ trắng',1,2,'2021-09-22','M'),
+(11,'chosoi@mail.com','chó','chó sói',2,1,'2019-09-22','M'),
+(12,'voicon@mail.com','voi','voi con',1,2,'2021-10-22','U'),
+(13,'casau@mail.com','cá','cá sấu',3,3,'2021-09-22','F'),
+(14,'bosua@mail.com','bò','bò sữa',4,4,'2021-09-22','F'),
+(15,'sutu@mail.com','su','su tu',5,1,'2021-09-22','M'),
+(16,'anguyen@mail.com','a','Nguyễn Văn A',2,2,'2016-09-22','U');
 
 
 -- Table 4: Group
@@ -156,7 +157,9 @@ VALUES(1,'SQL la gi?', 3,1,3,'2021/10/10'),
 (7,'JS de lam gi?', 1,2,5,'2021/9/10'),
 (8,'C++ la gi?', 1,1,9,'2021/10/10'),
 (9,'C++ su dung ra sao?', 3,1,16,'2021/11/10'),
-(10,'C++ ai su dung?', 6,2,2,'2021/12/10');
+(10,'C++ ai su dung?', 6,2,2,'2021/10/10'),
+(11,'C++ khác C# như thế nào?', 3,2,2,'2021/01/10'),
+(12,'JAVASCRIPT và JAVA khác nhau như thế nào?', 1,2,2,'2021/03/10');
 
 
 -- Table 9: Answer
@@ -172,7 +175,8 @@ CREATE TABLE answer (
     is_correct 			BOOLEAN
 );
 INSERT INTO `answer`(answer_id,content,question_id,is_correct) 
-VALUES(1,'biet roi',9,1),
+VALUES
+	(1,'biet roi',9,1),
 	(2,'khong biet',9,1),
     (3,'biet',9,0),
     (4,'vui',1,0),
@@ -225,6 +229,6 @@ CREATE TABLE exam_question(
 	FOREIGN KEY (exam_id) REFERENCES `exam`(exam_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 INSERT INTO exam_question(exam_id,question_id) 
-VALUES(1,10),(2,9),(3,8),(4,7),(5,6),(6,10),(7,4),(8,3),(9,10),(10,1),(9,2),(8,2),(7,3),(6,4),(5,4),(4,4);
+VALUES(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(2,10),(3,8),(4,7),(5,6),(6,5),(7,4),(8,3),(9,2),(10,1);
 
 -- Error Code: 1064. You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VALUES' at line 1
